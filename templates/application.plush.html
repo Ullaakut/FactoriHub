@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <title>Buffalo - Factorihub</title>
+    <title>FactoriHub</title>
     <%= stylesheetTag("application.css") %>
-    <meta name="csrf-param" content="authenticity_token" />
-    <meta name="csrf-token" content="<%= authenticity_token %>" />
-    <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
-  </head>
-  <body>
+    <meta name="csrf-param" content="authenticity_token"/>
+    <meta name="csrf-token" content="<%= authenticity_token %>"/>
+    <link rel="icon" href="<%= assetPath() %>/images/favicon.ico">
+</head>
+<body>
 
-    <div class="container">
-      <%= partial("flash.html") %>
-      <%= yield %>
-    </div>
+    <header>
+        <div class="row">
+            <div class="col-9 logo">
+                <a href="<%= rootPath() %>">
+                    <img src="<%= assetPath() %>/images/logo.png" alt="">
+                    <h1>FactoriHub</h1>
+                </a>
+            </div>
+            <div class="col-3 menu">
+                <a href="<%= rootPath() %>upload">
+                    <h2>Upload</h2>
+                </a>
+                <a href="<%= rootPath() %>login">
+                    <h2>Login</h2>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <%= partial("flash.html") %>
+    <%= yield %>
 
     <%= javascriptTag("application.js") %>
-  </body>
+
+</body>
 </html>

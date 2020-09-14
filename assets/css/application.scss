@@ -1,4 +1,343 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-@import "buffalo";
+body {
+  font-family: 'Titillium Web', serif;
+  color: #fff;
+  background-color: #2c2f33;
+  background-image: linear-gradient(rgba(65, 65, 65, .5) 2px, transparent 2px),
+  linear-gradient(90deg, rgba(65, 65, 65, .5) 2px, transparent 2px),
+  linear-gradient(rgba(65, 65, 65, .28) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(65, 65, 65, .28) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+[aria-hidden="true"] {
+  opacity: 0;
+  position: absolute;
+  z-index: -9999;
+  pointer-events: none;
+}
+
+a, a:hover {
+  color: #6773b7;
+  font-weight: 700;
+}
+
+header {
+  background-color: rgb(45, 44, 51);
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+  width: 100%;
+
+  h1 {
+    font-size: 36px;
+    font-family: "Titillium Web", serif;
+    color: rgb(255, 255, 255);
+    line-height: 1.2;
+    text-align: left;
+    font-weight: 700;
+    display: inline;
+    vertical-align: middle;
+  }
+
+  h2 {
+    color: white;
+    font-weight: 600;
+    display: inline;
+    line-height: 2.2em;
+  }
+
+  .menu {
+    text-align: right;
+
+    a {
+      margin: 0 15px;
+    }
+  }
+
+  .logo img {
+    width: auto;
+    margin: 15px;
+  }
+
+  a:link {
+    text-decoration: none !important;
+  }
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.semibold {
+  font-weight: 500;
+}
+
+.content {
+  width: 95%;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: rgba(25, 25, 25, 204);
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+}
+
+.markdown {
+  h1, h2, h3, h4 {
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: 36pt;
+  }
+
+  h2 {
+    font-size: 18pt;
+    line-height: 44px;
+  }
+
+  h3, h4 {
+    font-size: 16pt;
+    line-height: 30px;
+  }
+
+  p, ul {
+    font-size: 16pt;
+    line-height: 26px;
+  }
+
+  a {
+    font-weight: 600;
+  }
+}
+
+// Blueprint page.
+.bp {
+  .sidebar {
+    width: 25%;
+    height: 100%;
+    float: left;
+
+    > img {
+      width: 100%;
+      border: 2px solid #cccd;
+    }
+
+    > div {
+      margin-bottom: 20px;
+
+      h4 {
+        font-size: 26pt;
+        margin: 15px auto;
+        font-weight: 600;
+      }
+    }
+
+    #version-container {
+      font-size: 18pt;
+
+      svg {
+        width: 21px;
+        height: 23px;
+
+        path {
+          fill: #6cc644;
+        }
+      }
+
+      #latest {
+        color: #6cc644;
+        display: inline-block;
+        padding: 3px 11px;
+        font-size: 16pt;
+        font-weight: 600;
+        line-height: 18px;
+        border-radius: 2em;
+        background-color: initial !important;
+        border: 1px solid #6cc644;
+      }
+    }
+
+    #author-container {
+      font-size: 18pt;
+
+      img {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+      }
+    }
+
+    #label-container {
+      a {
+        background-color: #182030;
+        color: #9daccc;
+        box-shadow: inset 0 0 0 1px #246;
+        border-radius: 2em;
+        margin: 0 .125em .333em 0;
+        padding: 0 10px;
+        line-height: 22px;
+        font-weight: 600;
+        display: inline-block;
+        text-decoration: none;
+      }
+
+      a:hover {
+        background-color: #273045;
+      }
+    }
+  }
+
+  .main {
+    // Leave 2% of margin between both columns.
+    width: 73%;
+    float: right;
+
+    #buttons {
+      text-align: right;
+      font-size: 18pt;
+
+      button {
+        color: #cad1e0;
+        font-weight: 700;
+        text-decoration: none !important;
+      }
+
+      #fav {
+        padding: 1px 8px;
+        border-radius: 8px 0px 0px 8px;
+        border: 2px solid rgb(45, 44, 51);
+        background-color: rgb(45, 44, 51);
+      }
+
+      #fav:hover {
+        background-color: rgb(55, 54, 61);
+      }
+
+      #fav + span {
+        padding: 0px 8px;
+        background-color: transparent;
+        border-radius: 0px 8px 8px 0px;
+        border: 2px solid rgb(45, 44, 51);
+      }
+
+      #edit {
+        margin: 0 10px;
+        padding: 1px 8px;
+        border-radius: 8px;
+        border: 2px solid rgb(45, 44, 51);
+        background-color: rgb(45, 44, 51);
+      }
+
+      #edit:hover {
+        background-color: rgb(55, 54, 61);
+      }
+
+      #copy {
+        height: 38px;
+        border: 2px solid #6cc644;
+        background: #6cc644;
+        border-radius: 5px;
+        cursor: pointer;
+
+        svg {
+          margin-top: -6px;
+          height: 27px;
+          width: 35px;
+          fill: white;
+        }
+      }
+
+      #copy:hover {
+        background: #86e260;
+      }
+    }
+
+    #description {
+      margin-top: -42px; // Align with buttons. TODO: This will break responsiveness.
+      margin-bottom: 100px;
+    }
+
+    #comments {
+      a {
+        text-decoration: none !important;
+      }
+
+      h3 {
+        display: inline;
+        color: white !important;
+        font-weight: 600;
+      }
+
+      img {
+        margin-left: 15px;
+        margin-top: -15px;
+      }
+
+      p {
+        color: gray !important;
+        font-weight: 600;
+      }
+    }
+
+    #blueprints {
+      table, td, th, tr {
+        padding: 5px 20px;
+        white-space: nowrap;
+        table-layout: fixed;
+      }
+
+      thead {
+        color: grey;
+        font-weight: 700;
+        font-size: 24pt;
+      }
+
+      .name {
+        width: 40%;
+        font-size: 18pt;
+        font-weight: 600;
+      }
+
+      .icons {
+        width: 85px;
+        height: 85px;
+        background-image: url("/assets/images/icons/blueprint-book.png");
+        background-size: cover;
+        padding: 0 0 0 21px;
+        white-space: normal;
+
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
+      // Override previous rule to not add a background in the header.
+      th.icons {
+        background-image: none;
+        padding: 0;
+      }
+
+      .entities {
+        width: calc(60% - 85px);
+
+        div {
+          width: 100%;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scrollbar-color: white gray;
+
+          span {
+            margin-left: -22px;
+            margin-right: 22px;
+            font-size: 25pt;
+            font-weight: 700;
+            vertical-align: bottom;
+            text-shadow: 4px 4px black;
+          }
+        }
+      }
+    }
+  }
+}

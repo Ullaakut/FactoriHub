@@ -1,17 +1,64 @@
 package models
 
+import (
+	"fmt"
+	"strconv"
+)
+
+type BlueprintData struct {
+	BlueprintBook BlueprintBook `json:"blueprint_book"`
+}
+
 type BlueprintBook struct {
+	Author       User     `json:"-"`
+	Favorites    uint     `json:"-"`
+	Labels       []string `json:"-"`
+	Image        string   `json:"-"`
+	RawString    string   `json:"-"`
+	RedditThread string   `json:"-"`
+
 	// 	String, the name of the item that was saved ("blueprint-book" in vanilla).
 	Item string `json:"item"`
 	// 	String, the name of the blueprint set by the user.
 	Label      string `json:"label"`
 	LabelColor Color  `json:"label_color"`
 	// The actual content of the blueprint book, array of objects containing an "index" key and 0-based value and a "blueprint" key with a #Blueprint object as the value.
-	Blueprints []Blueprint `json:"blueprints"`
+	Blueprints []BlueprintReference `json:"blueprints"`
 	// Index of the currently selected blueprint, 0-based.
-	ActiveIndex int `json:"active_index"`
-	// See https://wiki.factorio.com/Version_string_format
-	Version int64 `json:"version"`
+	ActiveIndex int           `json:"active_index"`
+	Version     VersionString `json:"version"`
+}
+
+type BlueprintReference struct {
+	Blueprint Blueprint `json:"blueprint"`
+	Index     int       `json:"index"`
+}
+
+// See https://wiki.factorio.com/Version_string_format
+type VersionString struct {
+	Major  uint16
+	Minor  uint16
+	Hotfix uint16
+	Dev    uint16
+}
+
+// Bit shift to the right + AND with a full uint16 to extract the binary info from the uint64.
+func (v *VersionString) UnmarshalJSON(data []byte) error {
+	ver, err := strconv.ParseUint(string(data), 10, 64)
+	if err != nil {
+		return err
+	}
+
+	v.Major = uint16(ver >> 48 & 65535)
+	v.Minor = uint16(ver >> 32 & 65535)
+	v.Hotfix = uint16(ver >> 16 & 65535)
+	v.Dev = uint16(ver & 65535)
+
+	return nil
+}
+
+func (v VersionString) String() string {
+	return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Hotfix)
 }
 
 type Blueprint struct {
@@ -21,10 +68,29 @@ type Blueprint struct {
 	LabelColor Color      `json:"label_color"`
 	Entities   []Entities `json:"entities"`
 	Tiles      []Tile     `json:"tiles"`
-	Icons      []Icons    `json:"icons"`
+	Icons      []Icon     `json:"icons"`
 	Schedules  []Schedule `json:"schedules"`
 	// The map version of the map the blueprint was created in.
-	Version int64 `json:"version"`
+	Version VersionString `json:"version"`
+}
+
+func (b Blueprint) TotalEntities() map[string]uint {
+	var total = make(map[string]uint)
+	for _, e := range b.Entities {
+		typ := e.Type
+		switch typ {
+		// No type specified.
+		case "":
+			typ = "item"
+
+		// Legacy type naming.
+		case "input", "output":
+			typ = "item"
+		}
+
+		total[typ+"/"+e.Name] += 1
+	}
+	return total
 }
 
 type Entities struct {
@@ -36,7 +102,7 @@ type Entities struct {
 	Direction int      `json:"direction,omitempty"`
 	// Orientation of cargo wagon or locomotive, value 0 to 1 (optional).
 	Orientation     float64         `json:"orientation"`
-	Connections     []Connection    `json:"connections"`
+	Connections     Connections     `json:"connections"`
 	ControlBehavior ControlBehavior `json:"control_behavior,omitempty"`
 	Items           ItemRequest     `json:"items"`
 	Recipe          string          `json:"recipe"`
@@ -72,14 +138,14 @@ type Inventory struct {
 	Bar uint16 `json:"bar"`
 }
 
-type Connection struct {
+type Connections struct {
 	First  ConnectionPoint `json:"1"`
 	Second ConnectionPoint `json:"2"`
 }
 
 type ConnectionPoint struct {
-	Red   ConnectionData `json:"red"`
-	Green ConnectionData `json:"green"`
+	Red   []ConnectionData `json:"red"`
+	Green []ConnectionData `json:"green"`
 }
 
 type ConnectionData struct {
@@ -126,8 +192,8 @@ type SpeakerAlertParameters struct {
 }
 
 type Position struct {
-	X int `json:"x"`
-	Y int `json:"y"`
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
 }
 
 type ControlBehavior struct {
@@ -150,9 +216,9 @@ type SignalID struct {
 	Name string `json:"name"`
 }
 
-type Icons struct {
-	Signal Signal `json:"signal"`
-	Index  int    `json:"index"`
+type Icon struct {
+	Signal SignalID `json:"signal"`
+	Index  int      `json:"index"`
 }
 
 type Color struct {
