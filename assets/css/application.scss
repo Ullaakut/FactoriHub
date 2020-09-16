@@ -111,6 +111,123 @@ header {
   }
 }
 
+#search {
+  div {
+    display:inline-flex;
+  }
+
+  /* Reset Select */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: transparent;
+    background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select */
+  .select {
+    position: relative;
+    display: flex;
+    width: 12em;
+    height: 3em;
+    line-height: 3;
+    background: transparent;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+
+  select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  /* Arrow */
+  .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 .5em;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover {
+    background: #2d2c33;
+  }
+
+  ::placeholder {
+    color: #777;
+  }
+
+  input {
+    background: none;
+    border: 0;
+    color: #777;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    font-size: 26pt;
+    font-weight: 700;
+  }
+
+  #sorters, #filters {
+    font-size: 18pt;
+    font-weight: 600;
+  }
+
+  #filters {
+    float:left;
+    width: 15%;
+  }
+
+  #sorters {
+    width: 5%;
+    float: right;
+  }
+
+  #search-bar {
+    width: 78%;
+    align-items: center;
+    background-color: #2d2c33;
+    border-radius: 0.125em;
+    box-shadow: inset 1px 1px 1px #242424, inset -1px -1px 1px #565656;
+    color: #aaa;
+    display: inline-flex;
+  }
+
+  #search-bar input[type='search'] {
+    flex-grow: 1;
+    padding-bottom: 0.25em;
+    padding-right: 0.25em;
+    padding-top: 0.25em;
+  }
+
+  #search-bar input[type='submit'] {
+    background-image: url('https://cdn.rawgit.com/marcobiedermann/playground/master/ui/search/simple-search-bar/dist/assets/images/magnifier.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    order: -1;
+    text-indent: -999px;
+    width: 3em;
+  }
+}
+
 // Blueprint page.
 .bp {
   .sidebar {

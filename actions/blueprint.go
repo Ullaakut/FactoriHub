@@ -42,7 +42,19 @@ func BlueprintHandler(c buffalo.Context) error {
 	}
 
 	c.Set("blueprint", bp.BlueprintBook)
-	c.Set("latestVersion", "1.0.0")
-
+	c.Set("versions", models.Versions{
+		{1, 0, 0, 0},
+		{0, 16, 4, 2},
+	})
+	c.Set("labels", []string{
+		"tileable",
+		"mall",
+		"science",
+		"balancer",
+		"rocket",
+		"power",
+		"furnace",
+		"defense",
+	})
 	return c.Render(http.StatusOK, r.HTML("blueprint.html"))
 }

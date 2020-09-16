@@ -1,4 +1,5 @@
 <div class="content bp">
+    <%= partial("search.html") %>
     <div class="sidebar">
         <img src="<%= assetPath() %>/images/blueprints/<%= blueprint.Image %>" alt="blueprint.ShortDescription()"/>
         <div id="version-container">
@@ -11,7 +12,7 @@
                 <a href="https://wiki.factorio.com/Version_history/<%= blueprint.Version.String() %>" id="version">
                     v<%= blueprint.Version.String() %>
                 </a>
-                <%= if (blueprint.Version.String() == latestVersion) { %>
+                <%= if (blueprint.Version.String() == versions.Latest()) { %>
                 <span id="latest">latest</span>
                 <% } %>
             </div>
