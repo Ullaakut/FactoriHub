@@ -1,0 +1,7 @@
+create_table("blueprint_references") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("blueprint_book_id", "uuid", {})
+	t.Column("blueprint_id", "uuid", {})
+	t.Column("index", "integer", {})
+	t.Timestamps()
+}

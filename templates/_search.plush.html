@@ -1,13 +1,13 @@
 <form id="search" role="search" action="/search" accept-charset="UTF-8">
     <div id="filters">
         <div id="type-filter" class="select">
-            <select name="Type">
+            <select name="version">
                 <option value="blueprints" selected>Blueprints</option>
                 <option value="map seeds" disabled>Map seeds</option>
             </select>
         </div>
         <div id="version-filter" class="select">
-            <select name="Labels">
+            <select name="version">
                 <option value="" selected disabled>Version</option>
                 <%= for (version) in versions { %>
                 <option value="<%= version %>"><%= version %></option>
@@ -15,8 +15,8 @@
             </select>
         </div>
         <div id="label-filter" class="select">
-            <select name="Labels">
-                <option value="" selected disabled>Labels</option>
+            <select name="label">
+                <option value="" selected disabled>Label</option>
                 <%= for (label) in labels { %>
                 <option value="<%= label %>"><%= label %></option>
                 <% } %>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div id="search-bar">
-        <input type="search" placeholder="Search">
+        <input type="search" name="query" placeholder="Search">
         <input type="submit" value="Search">
     </div>
     <div id="sorters">

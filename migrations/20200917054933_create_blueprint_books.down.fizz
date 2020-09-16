@@ -1,0 +1,1 @@
+drop_table("blueprint_books")

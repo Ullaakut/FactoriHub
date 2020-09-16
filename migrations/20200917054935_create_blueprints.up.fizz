@@ -1,0 +1,9 @@
+create_table("blueprints") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("item", "string", {})
+	t.Column("name", "string", {})
+	t.Column("version", "string", {})
+	t.Column("entry_id", "uuid", {})
+	t.Column("blueprint_reference_id", "uuid", {})
+	t.Timestamps()
+}

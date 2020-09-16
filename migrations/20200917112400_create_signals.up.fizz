@@ -1,0 +1,14 @@
+create_table("signals") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("count", "integer", {})
+	t.Timestamps()
+}
+
+create_table("signals_ids") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("signal_id", "uuid", {})
+	t.Column("icon_id", "uuid", {})
+	t.Column("type", "string", {})
+	t.Column("name", "string", {})
+	t.Timestamps()
+}

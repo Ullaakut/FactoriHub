@@ -1,0 +1,2 @@
+drop_table("signals")
+drop_table("signal_ids")

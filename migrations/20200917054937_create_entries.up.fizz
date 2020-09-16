@@ -1,0 +1,13 @@
+create_table("entries") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("title", "string",  {})
+	t.Column("description", "text", {})
+	t.Column("favorites", "integer", {"default": 0})
+	t.Column("image", "string",  {})
+	t.Column("raw_string", "text", {})
+	t.Column("reddit_thread", "string",  {})
+	t.Column("author_id", "uuid", {})
+	t.Timestamps()
+}
+
+add_index("entries", "title", {"unique": true})

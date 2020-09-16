@@ -1,0 +1,5 @@
+create_table("icons") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("entity_id", "uuid", {})
+	t.Timestamps()
+}
