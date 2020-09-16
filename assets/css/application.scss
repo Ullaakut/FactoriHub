@@ -192,16 +192,16 @@ header {
 
   #filters {
     float:left;
-    width: 15%;
+    width: 450px;
   }
 
   #sorters {
-    width: 5%;
+    width: 150px;
     float: right;
   }
 
   #search-bar {
-    width: 78%;
+    width: calc(100% - 600px);
     align-items: center;
     background-color: #2d2c33;
     border-radius: 0.125em;
