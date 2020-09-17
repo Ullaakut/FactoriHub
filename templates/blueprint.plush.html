@@ -1,7 +1,7 @@
 <div class="content bp">
     <%= partial("search.html") %>
     <div class="sidebar">
-        <img src="<%= assetPath() %>/images/blueprints/<%= blueprint.Image %>" alt="blueprint.ShortDescription()"/>
+        <img src="<%= assetPath() %>/images/blueprints/gearmall.jpg" alt="blueprint.ShortDescription()"/>
         <div id="version-container">
             <h4>Version</h4>
             <div>
@@ -19,18 +19,19 @@
         </div>
         <div id="author-container">
             <h4>Author</h4>
-            <img src="<%= assetPath() %>/images/avatars/<%= blueprint.Author.Avatar%>"
-                 alt="<%= blueprint.Author.Name %>"/>
+            <!-- TODO: Use Gravatar -->
             <a href="<%= rootPath() %><%= blueprint.Author.Name %>">
                 <%= blueprint.Author.Name %>
             </a>
         </div>
         <div id="label-container">
             <h4>Labels</h4>
-            <%= for (label) in blueprint.Labels { %>
-            <a href="<%= rootPath() %>search?labels=<%= label %>">
-                <%= label %>
-            </a>
+            <%= if (!isNil(blueprint.Labels)) { %>
+                <%= for (label) in blueprint.Labels { %>
+                <a href="<%= rootPath() %>search?labels=<%= label  %>">
+                    <%= label %>
+                </a>
+                <% } %>
             <% } %>
         </div>
     </div>
@@ -69,25 +70,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Create one table row per blueprint in the book. -->
-                <%= for (bp) in blueprint.Blueprints { %>
-                <tr>
-                    <td class="tg-0lax name"><%= bp.Blueprint.Label %></td>
-                    <td class="tg-0lax icons">
-                        <%= for (icon) in bp.Blueprint.Icons { %>
-                        <img src="<%=assetPath() %>/images/icons/<%= icon.Signal.Type %>/<%= icon.Signal.Name %>.png"/>
-                        <% } %>
-                    </td>
-                    <td class="tg-0lax entities">
-                        <div>
-                            <%= for (entity, amount) in bp.Blueprint.TotalEntities() { %>
-                            <img src="<%=assetPath() %>/images/icons/<%= entity %>.png"/><span><%= amount %></span>
-                            <% } %>
-                        </div>
-                    </td>
-                </tr>
-                <% } %>
-
+                <%= partial("blueprint_reference.html") %>
+                <%= partial("blueprint_references.html") %>
                 </tbody>
             </table>
         </div>

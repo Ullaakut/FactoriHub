@@ -5,8 +5,10 @@ create_table("entries") {
 	t.Column("favorites", "integer", {"default": 0})
 	t.Column("image", "string",  {})
 	t.Column("raw_string", "text", {})
+	t.Column("labels", "text[]", {})
 	t.Column("reddit_thread", "string",  {})
-	t.Column("author_id", "uuid", {})
+	t.Column("version", "string", {})
+	t.Column("user_id",  "uuid", {})
 	t.Timestamps()
 }
 

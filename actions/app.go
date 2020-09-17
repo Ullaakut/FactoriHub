@@ -61,9 +61,10 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 		app.GET("/login", HomeHandler)
-		app.GET("/upload", HomeHandler)
+		app.GET("/upload", UploadHandler)
+		app.POST("/submit", SubmitHandler)
 		app.GET("/search", HomeHandler)
-		app.GET("/blueprint", BlueprintHandler)
+		app.GET("/blueprint/{bpid}", BlueprintHandler)
 
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}

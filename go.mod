@@ -13,7 +13,11 @@ require (
 	github.com/gobuffalo/packr/v2 v2.8.0
 	github.com/gobuffalo/pop v4.13.1+incompatible
 	github.com/gobuffalo/pop/v5 v5.2.4
-	github.com/markbates/pop v4.12.2+incompatible
+	github.com/gobuffalo/suite v2.8.2+incompatible
+	github.com/gobuffalo/validate/v3 v3.1.0
+	github.com/gofrs/uuid v3.2.0+incompatible
+	github.com/markbates/grift v1.5.0
+	github.com/markbates/pop v4.12.2+incompatible // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/unrolled/secure v0.0.0-20190103195806-76e6d4e9b90c
 )

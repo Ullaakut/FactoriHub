@@ -14,6 +14,11 @@ type Icon struct {
 	EntityID uuid.UUID `json:"-" db:"entity_id"`
 	Entity   *Entity   `json:"-" belongs_to:"entity"`
 
+	BlueprintID uuid.UUID `json:"-" db:"blueprint_id"`
+	Blueprint   *Entity   `json:"-" belongs_to:"blueprint"`
+
 	Signal SignalID `json:"signal" has_one:"signal"`
-	Index  int      `json:"index"`
+	Index  int      `json:"index" db:"-"`
 }
+
+type Icons []Icon

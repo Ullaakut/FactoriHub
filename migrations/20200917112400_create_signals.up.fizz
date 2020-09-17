@@ -6,9 +6,8 @@ create_table("signals") {
 
 create_table("signals_ids") {
 	t.Column("id", "uuid", {primary: true})
-	t.Column("signal_id", "uuid", {})
-	t.Column("icon_id", "uuid", {})
 	t.Column("type", "string", {})
 	t.Column("name", "string", {})
+	t.Column("icon_id",  "uuid", {})
 	t.Timestamps()
 }

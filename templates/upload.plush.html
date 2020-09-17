@@ -1,0 +1,27 @@
+<%= stylesheetTag("upload.css") %>
+
+<div class="content upload">
+    <div id="tips">
+        <%= partial("upload_tips.md") %>
+    </div>
+    <form id="upload" role="form" action="submit" method="post" accept-charset="UTF-8">
+        <input type="text" name="title" placeholder="Title">
+        <textarea name="raw_string" placeholder="Paste Blueprint string here"></textarea>
+        <fieldset>
+            <legend>Select labels</legend>
+            <%= for (l) in labels { %>
+            <input type="checkbox" name="labels" value="<%= l %>"><%= l %>
+            <% } %>
+            <br>
+        </fieldset>
+        <textarea name="description" placeholder="Description"></textarea>
+        <%= csrf() %>
+        <input type="submit" value="Submit Blueprint"/>
+    </form>
+    <div id="markdown_tutorial">
+        <%= partial("upload_markdown_tutorial.md") %>
+    </div>
+    <br clear="both"/>
+</div>
+
+<%= javascriptTag("label.js") %>

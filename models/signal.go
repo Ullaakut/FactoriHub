@@ -19,12 +19,12 @@ type SignalID struct {
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 
-	SignalID uuid.UUID `json:"-" db:"signal_id"`
-	Signal   *Signal   `json:"-" belongs_to:"signal"`
+	//SignalID uuid.UUID `json:"-" db:"signal_id"`
+	//Signal   *Signal   `json:"-" belongs_to:"signal"`
 
 	IconID uuid.UUID `json:"-" db:"icon_id"`
 	Icon   *Icon     `json:"-" belongs_to:"icon"`
 
-	Type string `json:"type"`
-	Name string `json:"name"`
+	Type string `json:"type" db:"type"`
+	Name string `json:"name" db:"name"`
 }

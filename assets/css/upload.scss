@@ -1,0 +1,44 @@
+#tips {
+  float: left;
+  width: 25%;
+}
+
+#upload {
+  float: left;
+  width: 50%;
+  padding: 20px;
+
+  >input, >textarea {
+    width: 100% !important;
+    margin-bottom: 20px;
+    background: #2d2c33;
+    border: none;
+    color: white;
+    padding: 5px;
+  }
+
+  textarea[name="description"] {
+    height: 500px;
+  }
+
+  input[type="submit"] {
+    width: auto !important;
+    float: right;
+    background: #6cc644;
+    border: 1px solid #6cc644;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 18pt;
+  }
+
+  select {
+    width: 100%;
+    background: #2d2c33;
+  }
+
+}
+
+#markdown_tutorial {
+  float: right;
+  width: 25%;
+}

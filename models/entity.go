@@ -1,7 +1,11 @@
 package models
 
 import (
+	"fmt"
+	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/validate/v3"
 	"github.com/gofrs/uuid"
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -21,36 +25,60 @@ type Entity struct {
 
 	// The following fields are not stored in the database at the moment.
 
-	Position  Position `json:"position"`
-	Direction int      `json:"direction,omitempty"`
+	Position  Position `json:"position" db:"-"`
+	Direction int      `json:"direction,omitempty" db:"-"`
 	// Orientation of cargo wagon or locomotive, value 0 to 1 (optional).
-	Orientation     float64         `json:"orientation"`
-	Connections     Connections     `json:"connections"`
-	ControlBehavior ControlBehavior `json:"control_behavior,omitempty"`
-	Items           ItemRequest     `json:"items"`
-	Recipe          string          `json:"recipe"`
+	Orientation     float64         `json:"orientation" db:"-"`
+	Connections     Connections     `json:"connections" db:"-"`
+	ControlBehavior ControlBehavior `json:"control_behavior,omitempty" db:"-"`
+	Items           ItemRequest     `json:"items" db:"-"`
+	Recipe          string          `json:"recipe" db:"-"`
 	// Used by Prototype/Container, optional. The index of the first inaccessible item slot due to limiting with the red "bar". 0-based Types/ItemStackIndex.
 	// See https://wiki.factorio.com/Types/ItemStackIndex
-	Bar                uint16                 `json:"bar"`
-	Inventory          Inventory              `json:"inventory"`
-	InfinitySettings   InfinitySettings       `json:"infinity_settings"`
-	InputPriority      string                 `json:"input_priority"`
-	OutputPriority     string                 `json:"output_priority"`
-	Filter             string                 `json:"filter"`
-	Filters            []ItemFilter           `json:"filters"`
-	FilterMode         string                 `json:"filter_mode"`
-	OverrideStackSize  uint8                  `json:"override_stack_size"`
-	DropPosition       Position               `json:"drop_position"`
-	PickupPosition     Position               `json:"pickup_position"`
-	RequestFilters     LogisticFilter         `json:"request_filters"`
-	RequestFromBuffers bool                   `json:"request_from_buffers"`
-	Parameters         SpeakerParameters      `json:"parameters"`
-	AlertParameters    SpeakerAlertParameters `json:"alert_parameters"`
-	AutoLaunch         bool                   `json:"auto_launch"`
+	Bar                uint16                 `json:"bar" db:"-"`
+	Inventory          Inventory              `json:"inventory" db:"-"`
+	InfinitySettings   InfinitySettings       `json:"infinity_settings" db:"-"`
+	InputPriority      string                 `json:"input_priority" db:"-"`
+	OutputPriority     string                 `json:"output_priority" db:"-"`
+	Filter             string                 `json:"filter" db:"-"`
+	Filters            []ItemFilter           `json:"filters" db:"-"`
+	FilterMode         string                 `json:"filter_mode" db:"-"`
+	OverrideStackSize  uint8                  `json:"override_stack_size" db:"-"`
+	DropPosition       Position               `json:"drop_position" db:"-"`
+	PickupPosition     Position               `json:"pickup_position" db:"-"`
+	RequestFilters     []LogisticFilter       `json:"request_filters" db:"-"`
+	RequestFromBuffers bool                   `json:"request_from_buffers" db:"-"`
+	Parameters         SpeakerParameters      `json:"parameters" db:"-"`
+	AlertParameters    SpeakerAlertParameters `json:"alert_parameters" db:"-"`
+	AutoLaunch         bool                   `json:"auto_launch" db:"-"`
 	// See https://wiki.factorio.com/Types/GraphicsVariation
-	Variation uint8  `json:"variation"`
-	Color     Color  `json:"color"`
-	Station   string `json:"station"`
+	Variation uint8  `json:"variation" db:"-"`
+	Color     Color  `json:"color" db:"-"`
+	Station   string `json:"station" db:"-"`
+}
+
+type Entities []Entity
+
+// ValidateCreate decodes a blueprint's info from its raw string and verifies whether it is valid.
+func (e Entity) ValidateCreate(_ *pop.Connection) (*validate.Errors, error) {
+	fmt.Println("Validating entity")
+
+	if e.Name == "" {
+		return validate.NewErrors(), errors.New("missing entity name")
+	}
+
+	fmt.Println("Validated entity")
+
+	return validate.NewErrors(), nil
+}
+
+// ValidateUpdate decodes a blueprint's info from its raw string and verifies whether it is valid.
+func (e Entity) ValidateUpdate(_ *pop.Connection) (*validate.Errors, error) {
+	if e.Name == "" {
+		return validate.NewErrors(), errors.New("missing entity name")
+	}
+
+	return validate.NewErrors(), nil
 }
 
 type Inventory struct {

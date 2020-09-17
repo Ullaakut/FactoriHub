@@ -1,5 +1,6 @@
 create_table("icons") {
 	t.Column("id", "uuid", {primary: true})
-	t.Column("entity_id", "uuid", {})
+	t.Column("entity_id",  "uuid", {})
+	t.Column("blueprint_id",  "uuid", {})
 	t.Timestamps()
 }

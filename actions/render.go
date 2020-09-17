@@ -3,6 +3,7 @@ package actions
 import (
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
+	"html/template"
 )
 
 var r *render.Engine
@@ -19,6 +20,9 @@ func init() {
 
 		// Add template helpers here:
 		Helpers: render.Helpers{
+			"csrf": func() template.HTML {
+				return template.HTML("<input name=\"authenticity_token\" value=\"<%= authenticity_token %>\" type=\"hidden\">")
+			},
 			// for non-bootstrap form helpers uncomment the lines
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,

@@ -1,5 +1,3 @@
--- noinspection SqlNoDataSourceInspectionForFile
-
 --
 -- PostgreSQL database dump
 --
@@ -44,9 +42,8 @@ ALTER TABLE public.blueprint_books OWNER TO postgres;
 
 CREATE TABLE public.blueprint_references (
     id uuid NOT NULL,
-    blueprint_book_id uuid NOT NULL,
-    blueprint_id uuid NOT NULL,
     index integer NOT NULL,
+    blueprint_book_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -99,8 +96,10 @@ CREATE TABLE public.entries (
     favorites integer DEFAULT 0 NOT NULL,
     image character varying(255) NOT NULL,
     raw_string text NOT NULL,
+    labels text[] NOT NULL,
     reddit_thread character varying(255) NOT NULL,
-    author_id uuid NOT NULL,
+    version character varying(255) NOT NULL,
+    user_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -115,6 +114,7 @@ ALTER TABLE public.entries OWNER TO postgres;
 CREATE TABLE public.icons (
     id uuid NOT NULL,
     entity_id uuid NOT NULL,
+    blueprint_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -153,10 +153,9 @@ ALTER TABLE public.signals OWNER TO postgres;
 
 CREATE TABLE public.signals_ids (
     id uuid NOT NULL,
-    signal_id uuid NOT NULL,
-    icon_id uuid NOT NULL,
     type character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
+    icon_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

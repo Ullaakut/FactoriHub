@@ -25,47 +25,6 @@ a, a:hover {
   font-weight: 700;
 }
 
-header {
-  background-color: rgb(45, 44, 51);
-  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
-  width: 100%;
-
-  h1 {
-    font-size: 36px;
-    font-family: "Titillium Web", serif;
-    color: rgb(255, 255, 255);
-    line-height: 1.2;
-    text-align: left;
-    font-weight: 700;
-    display: inline;
-    vertical-align: middle;
-  }
-
-  h2 {
-    color: white;
-    font-weight: 600;
-    display: inline;
-    line-height: 2.2em;
-  }
-
-  .menu {
-    text-align: right;
-
-    a {
-      margin: 0 15px;
-    }
-  }
-
-  .logo img {
-    width: auto;
-    margin: 15px;
-  }
-
-  a:link {
-    text-decoration: none !important;
-  }
-}
-
 .bold {
   font-weight: 700;
 }
@@ -111,9 +70,50 @@ header {
   }
 }
 
+header {
+  background-color: rgb(45, 44, 51);
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.35);
+  width: 100%;
+
+  h1 {
+    font-size: 36px;
+    font-family: "Titillium Web", serif;
+    color: rgb(255, 255, 255);
+    line-height: 1.2;
+    text-align: left;
+    font-weight: 700;
+    display: inline;
+    vertical-align: middle;
+  }
+
+  h2 {
+    color: white;
+    font-weight: 600;
+    display: inline;
+    line-height: 2.2em;
+  }
+
+  .menu {
+    text-align: right;
+
+    a {
+      margin: 0 15px;
+    }
+  }
+
+  .logo img {
+    width: auto;
+    margin: 15px;
+  }
+
+  a:link {
+    text-decoration: none !important;
+  }
+}
+
 #search {
   div {
-    display:inline-flex;
+    display: inline-flex;
   }
 
   /* Reset Select */
@@ -128,10 +128,12 @@ header {
     background: transparent;
     background-image: none;
   }
+
   /* Remove IE arrow */
   select::-ms-expand {
     display: none;
   }
+
   /* Custom Select */
   .select {
     position: relative;
@@ -151,6 +153,7 @@ header {
     cursor: pointer;
     font-weight: 600;
   }
+
   /* Arrow */
   .select::after {
     content: '\25BC';
@@ -165,6 +168,7 @@ header {
     -o-transition: .25s all ease;
     transition: .25s all ease;
   }
+
   /* Transition */
   .select:hover {
     background: #2d2c33;
@@ -191,7 +195,7 @@ header {
   }
 
   #filters {
-    float:left;
+    float: left;
     width: 450px;
   }
 
@@ -373,6 +377,8 @@ header {
     #description {
       margin-top: -42px; // Align with buttons. TODO: This will break responsiveness.
       margin-bottom: 100px;
+      width: 47%;
+      float: left;
     }
 
     #comments {
@@ -398,10 +404,16 @@ header {
     }
 
     #blueprints {
+      width: 47%;
+      margin-top: 50px;
+      float: right;
+
       table, td, th, tr {
-        padding: 5px 20px;
-        white-space: nowrap;
         table-layout: fixed;
+
+        .tg-0lax:nth-child(2) {
+          text-align: center;
+        }
       }
 
       thead {
@@ -410,7 +422,7 @@ header {
         font-size: 24pt;
       }
 
-      .name {
+      td.name {
         width: 40%;
         font-size: 18pt;
         font-weight: 600;
@@ -418,15 +430,20 @@ header {
 
       .icons {
         width: 85px;
-        height: 85px;
-        background-image: url("/assets/images/icons/blueprint-book.png");
-        background-size: cover;
-        padding: 0 0 0 21px;
-        white-space: normal;
 
-        img {
-          width: 25px;
-          height: 25px;
+        .bookimg {
+          height: 85px;
+          width: 85px;
+          padding: 12px 0 0 21px;
+
+          background-image: url("/assets/images/icons/blueprint-book.png");
+          background-size: cover;
+          background-repeat: no-repeat;
+
+          img {
+            width: 25px;
+            height: 25px;
+          }
         }
       }
 
@@ -438,6 +455,7 @@ header {
 
       .entities {
         width: calc(60% - 85px);
+        padding-left: 20px;
 
         div {
           width: 100%;
@@ -453,6 +471,71 @@ header {
             vertical-align: bottom;
             text-shadow: 4px 4px black;
           }
+        }
+      }
+    }
+  }
+}
+
+// Home page.
+.home {
+  .flex-container {
+    display: flex;
+
+    .card {
+      width: 300px;
+      height: 300px;
+      margin: 0.5%;
+      background: #26252b;
+      float: left;
+
+      img {
+        height: 100%;
+      }
+
+      .abs {
+        position: absolute;
+        bottom: 0;
+        background: #000000BB;
+        width: 100%;
+
+        svg {
+          width: 21px;
+          height: 23px;
+
+          path {
+            fill: #6cc644;
+          }
+        }
+
+        .latest {
+          color: #6cc644;
+          display: inline-block;
+          padding: 3px 11px;
+          font-size: 16pt;
+          font-weight: 600;
+          line-height: 18px;
+          border-radius: 2em;
+          background-color: initial !important;
+          border: 1px solid #6cc644;
+        }
+
+
+        .label {
+          background-color: #182030;
+          color: #9daccc;
+          box-shadow: inset 0 0 0 1px #246;
+          border-radius: 2em;
+          margin: 0 .125em .333em 0;
+          padding: 0 10px;
+          line-height: 22px;
+          font-weight: 600;
+          display: inline-block;
+          text-decoration: none;
+        }
+
+        .label:hover {
+          background-color: #273045;
         }
       }
     }
