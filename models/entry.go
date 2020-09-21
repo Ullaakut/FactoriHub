@@ -25,13 +25,17 @@ type Entry struct {
 	AuthorID uuid.UUID `json:"author_id" db:"user_id"`
 	Author   User      `json:"-" belongs_to:"user"`
 
-	Title         string         `form:"title" json:"-" db:"title"`
-	Description   string         `form:"description" json:"-" db:"description"`
-	Favorites     uint           `json:"-" db:"favorites"`
-	Image         string         `json:"-" db:"image"`
-	RawString     string         `form:"raw_string" json:"-" db:"raw_string"`
-	RedditThread  string         `form:"reddit_thread" json:"-" db:"reddit_thread"`
-	Labels        slices.String  `form:"labels" json:"-" db:"labels"`
+	Title        string `form:"title" json:"-" db:"title"`
+	Description  string `form:"description" json:"-" db:"description"`
+	Favorites    uint   `json:"-" db:"favorites"`
+	Image        string `json:"-" db:"image"`
+	RawString    string `form:"raw_string" json:"-" db:"raw_string"`
+	RedditThread string `form:"reddit_thread" json:"-" db:"reddit_thread"`
+
+	// See https://github.com/monoculum/formam/issues/33.
+	Labels   []string      `db:"-" form:"labels"`
+	LabelsDB slices.String `json:"-" db:"labels"`
+
 	Version       string         `json:"-" db:"version"`
 	BlueprintBook *BlueprintBook `json:"blueprint_book" has_one:"blueprint_book"`
 	Blueprint     *Blueprint     `json:"blueprint" has_one:"blueprint"`
@@ -89,40 +93,12 @@ func (e *Entry) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
 		return validate.NewErrors(), fmt.Errorf("invalid blueprint string: %w", err)
 	}
 
-	fmt.Printf("DECODED ENTRY: %v\n", e)
-	if e.BlueprintBook != nil {
-		for _, bp := range e.BlueprintBook.BlueprintReferences {
-			fmt.Printf("DECODED BOOK: %v\n", bp)
-		}
-	} else if e.Blueprint != nil {
-		fmt.Printf("DECODED BOOK: %v\n", e.Blueprint)
-	}
+	// See https://github.com/monoculum/formam/issues/33.
+	e.LabelsDB = e.Labels
 
 	if e.BlueprintBook == nil && e.Blueprint == nil {
 		return validate.NewErrors(), errors.New("missing blueprint")
 	}
-
-	fmt.Println("Before creating BP")
-
-	//if e.BlueprintBook.Version != "" {
-	//	verrs, err := tx.ValidateAndCreate(e.BlueprintBook)
-	//	if err != nil {
-	//		return validate.NewErrors(), errors.WithStack(err)
-	//	}
-	//	if verrs.HasAny() {
-	//		return verrs, fmt.Errorf("unable to create blueprint book: %w", err)
-	//	}
-	//} else {
-	//	verrs, err := tx.ValidateAndCreate(e.Blueprint)
-	//	if err != nil {
-	//		return validate.NewErrors(), errors.WithStack(err)
-	//	}
-	//	if verrs.HasAny() {
-	//		return verrs, fmt.Errorf("unable to create blueprint: %w", err)
-	//	}
-	//}
-
-	fmt.Println("After creating BP")
 
 	return validate.NewErrors(), nil
 }
@@ -133,27 +109,12 @@ func (e *Entry) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 		return validate.NewErrors(), fmt.Errorf("invalid blueprint string: %w", err)
 	}
 
+	// See https://github.com/monoculum/formam/issues/33.
+	e.LabelsDB = e.Labels
+
 	if e.BlueprintBook == nil && e.Blueprint == nil {
 		return validate.NewErrors(), errors.New("missing blueprint")
 	}
-
-	//if e.BlueprintBook.Version != "" {
-	//	verrs, err := tx.ValidateAndUpdate(e.BlueprintBook)
-	//	if err != nil {
-	//		return validate.NewErrors(), errors.WithStack(err)
-	//	}
-	//	if verrs.HasAny() {
-	//		return verrs, fmt.Errorf("unable to create blueprint book: %w", err)
-	//	}
-	//} else {
-	//	verrs, err := tx.ValidateAndUpdate(e.Blueprint)
-	//	if err != nil {
-	//		return validate.NewErrors(), errors.WithStack(err)
-	//	}
-	//	if verrs.HasAny() {
-	//		return verrs, fmt.Errorf("unable to create blueprint: %w", err)
-	//	}
-	//}
 
 	return validate.NewErrors(), nil
 }
