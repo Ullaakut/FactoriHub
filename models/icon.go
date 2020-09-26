@@ -11,9 +11,6 @@ type Icon struct {
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 
-	EntityID uuid.UUID `json:"-" db:"entity_id"`
-	Entity   *Entity   `json:"-" belongs_to:"entity"`
-
 	BlueprintID uuid.UUID `json:"-" db:"blueprint_id"`
 	Blueprint   *Entity   `json:"-" belongs_to:"blueprint"`
 

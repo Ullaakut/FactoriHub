@@ -113,7 +113,6 @@ ALTER TABLE public.entries OWNER TO postgres;
 
 CREATE TABLE public.icons (
     id uuid NOT NULL,
-    entity_id uuid NOT NULL,
     blueprint_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -134,6 +133,22 @@ CREATE TABLE public.schema_migration (
 ALTER TABLE public.schema_migration OWNER TO postgres;
 
 --
+-- Name: signal_ids; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.signal_ids (
+    id uuid NOT NULL,
+    type character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    icon_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.signal_ids OWNER TO postgres;
+
+--
 -- Name: signals; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -146,22 +161,6 @@ CREATE TABLE public.signals (
 
 
 ALTER TABLE public.signals OWNER TO postgres;
-
---
--- Name: signals_ids; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.signals_ids (
-    id uuid NOT NULL,
-    type character varying(255) NOT NULL,
-    name character varying(255) NOT NULL,
-    icon_id uuid NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE public.signals_ids OWNER TO postgres;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -227,11 +226,11 @@ ALTER TABLE ONLY public.icons
 
 
 --
--- Name: signals_ids signals_ids_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: signal_ids signal_ids_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.signals_ids
-    ADD CONSTRAINT signals_ids_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.signal_ids
+    ADD CONSTRAINT signal_ids_pkey PRIMARY KEY (id);
 
 
 --

@@ -4,7 +4,7 @@ create_table("signals") {
 	t.Timestamps()
 }
 
-create_table("signals_ids") {
+create_table("signal_ids") {
 	t.Column("id", "uuid", {primary: true})
 	t.Column("type", "string", {})
 	t.Column("name", "string", {})

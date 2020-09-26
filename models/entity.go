@@ -15,7 +15,7 @@ type Entity struct {
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 
 	// Index of the entity, 1-based.
-	Index int `json:"entity_number" db:"index"`
+	Index int `json:"entity_number" db:"-"`
 	// Prototype name of the entity (e.g. "offshore-pump").
 	Name string `json:"name" db:"name"`
 	Type string `json:"type" db:"type"`
