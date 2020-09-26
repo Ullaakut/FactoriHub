@@ -37,8 +37,8 @@ type Entry struct {
 	LabelsDB slices.String `json:"-" db:"labels"`
 
 	Version       string         `json:"-" db:"version"`
-	BlueprintBook *BlueprintBook `json:"blueprint_book" has_one:"blueprint_book"`
-	Blueprint     *Blueprint     `json:"blueprint" has_one:"blueprint"`
+	BlueprintBook *BlueprintBook `json:"blueprint_book" db:"-"`
+	Blueprint     *Blueprint     `json:"blueprint" db:"-"`
 }
 
 // Entries is not required by pop and may be deleted

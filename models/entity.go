@@ -4,24 +4,15 @@ import (
 	"fmt"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/validate/v3"
-	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
-	"time"
 )
 
 type Entity struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-
 	// Index of the entity, 1-based.
 	Index int `json:"entity_number" db:"-"`
 	// Prototype name of the entity (e.g. "offshore-pump").
-	Name string `json:"name" db:"name"`
-	Type string `json:"type" db:"type"`
-
-	BlueprintID uuid.UUID  `json:"-" db:"blueprint_id"`
-	Blueprint   *Blueprint `json:"-" belongs_to:"blueprint"`
+	Name string `json:"name" db:"-"`
+	Type string `json:"type" db:"-"`
 
 	// The following fields are not stored in the database at the moment.
 

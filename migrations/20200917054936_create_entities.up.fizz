@@ -1,7 +1,0 @@
-create_table("entities") {
-	t.Column("id", "uuid", {primary: true})
-	t.Column("name", "string", {})
-	t.Column("type", "string", {})
-	t.Column("blueprint_id",  "uuid", {})
-	t.Timestamps()
-}

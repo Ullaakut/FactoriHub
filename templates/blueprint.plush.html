@@ -1,7 +1,7 @@
 <div class="content bp">
     <%= partial("search.html") %>
     <div class="sidebar">
-        <img src="<%= assetPath() %>/images/blueprints/gearmall.jpg" alt="blueprint.ShortDescription()"/>
+        <img src="<%= assetPath() %>/images/blueprints/gearmall.jpg" alt="entry.Title"/>
         <div id="version-container">
             <h4>Version</h4>
             <div>
@@ -9,10 +9,10 @@
                     <path fill-rule="evenodd"
                           d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
                 </svg>
-                <a href="https://wiki.factorio.com/Version_history/<%= blueprint.Version.String() %>" id="version">
-                    v<%= blueprint.Version.String() %>
+                <a href="https://wiki.factorio.com/Version_history/<%= entry.Version.String() %>" id="version">
+                    v<%= entry.Version.String() %>
                 </a>
-                <%= if (blueprint.Version.String() == versions.Latest()) { %>
+                <%= if (entry.Version.String() == versions.Latest()) { %>
                 <span id="latest">latest</span>
                 <% } %>
             </div>
@@ -20,13 +20,13 @@
         <div id="author-container">
             <h4>Author</h4>
             <!-- TODO: Use Gravatar -->
-            <a href="<%= rootPath() %><%= blueprint.Author.Name %>">
-                <%= blueprint.Author.Name %>
+            <a href="<%= rootPath() %><%= entry.Author.Name %>">
+                <%= entry.Author.Name %>
             </a>
         </div>
         <div id="label-container">
             <h4>Labels</h4>
-            <%= for (label) in blueprint.LabelsDB { %>
+            <%= for (label) in entry.LabelsDB { %>
             <a href="<%= rootPath() %>search?labels=<%= label  %>">
                 <%= label %>
             </a>
@@ -35,24 +35,24 @@
     </div>
     <div class="main">
         <div id="buttons">
-            <button id="fav" href="/blueprint?favorite">Favorite</button><span><%= blueprint.Favorites %></span>
+            <button id="fav" href="/blueprint?favorite">Favorite</button><span><%= entry.Favorites %></span>
             <button id="edit" href="/blueprint?edit">Edit blueprint</button>
             <button id="copy">
                 <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                     <path fill-rule="evenodd"
                           d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
                 </svg>
-                <input id="bpstring" type="text" value="<%= blueprint.RawString %>" readonly aria-hidden="true">
+                <input id="bpstring" type="text" value="<%= entry.RawString %>" readonly aria-hidden="true">
             </button>
         </div>
         <div id="description" class="markdown">
             <%= partial("blueprint_description.md") %>
         </div>
         <div id="comments">
-            <%= if (blueprint.RedditThread) { %>
-            <a href="<%= blueprint.RedditThread %>">
+            <%= if (entry.RedditThread) { %>
+            <a href="<%= entry.RedditThread %>">
                 <h3>Comments</h3><img src="<%=assetPath() %>/images/external.png"/>
-                <p>source: <%= blueprint.RedditThread %></p>
+                <p>source: <%= entry.RedditThread %></p>
             </a>
             <% } else { %>
             <h3>No comment thread linked</h3>
@@ -68,8 +68,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%= partial("blueprint_reference.html") %>
-                <%= partial("blueprint_references.html") %>
+                <%= if (notNil(entry.BlueprintBook)) { %>
+                    <%= partial("blueprint_references.html") %>
+                <% } %>
+                <%= if (notNil(entry.Blueprint)) { %>
+                    <%= partial("blueprint_reference.html") %>
+                <% } %>
                 </tbody>
             </table>
         </div>

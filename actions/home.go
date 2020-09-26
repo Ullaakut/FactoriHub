@@ -26,24 +26,15 @@ func HomeHandler(c buffalo.Context) error {
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
 	q := tx.PaginateFromParams(c.Params())
-	//q.Select("*").
-	//Where("label_id LIKE '%' || ? || '%'", labelFilter).
-	//Where("version = ?", versionFilter).
-	//Where("title LIKE '%' || ? || '%'", query) //.
-	//Order(sort + " desc")
 	if err := q.All(&entries); err != nil {
 		return errors.WithStack(err)
 	}
 
-	//var versions models.Versions
-	//if err := q.All(&versions); err != nil {
-	//	return errors.WithStack(err)
-	//}
-
-	//var labels models.Labels
-	//if err := q.All(&labels); err != nil {
-	//	return errors.WithStack(err)
-	//}
+	for idx := range entries {
+		if err := entries[idx].DecodeBlueprint(); err != nil {
+			return errors.WithStack(err)
+		}
+	}
 
 	c.Set("notNil", func(c interface{}) bool {
 		return !(c == nil || (reflect.ValueOf(c).Kind() == reflect.Ptr && reflect.ValueOf(c).IsNil()))

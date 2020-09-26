@@ -4,30 +4,18 @@ import (
 	"fmt"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/validate/v3"
-	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
-	"time"
 )
 
 type Blueprint struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-
 	// String, the name of the item that was saved ("blueprint" in vanilla).
-	Item  string `json:"item" db:"item"`
-	Label string `json:"label" db:"name"`
+	Item  string `json:"item" db:"-"`
+	Label string `json:"label" db:"-"`
 	// The map version of the map the blueprint was created in.
-	Version VersionString `json:"version" db:"version"`
+	Version VersionString `json:"version" db:"-"`
 
-	Icons    Icons    `json:"icons" has_many:"icons"`
-	Entities Entities `json:"entities" has_many:"entities"`
-
-	EntryID uuid.UUID `db:"entry_id"`
-	Entry   *Entry    `json:"-" belongs_to:"entry"`
-
-	BlueprintReferenceID uuid.UUID           `db:"blueprint_reference_id"`
-	BlueprintReference   *BlueprintReference `json:"-" belongs_to:"blueprint_reference"`
+	Icons    Icons    `json:"icons" db:"-"`
+	Entities Entities `json:"entities" db:"-"`
 
 	// The following fields are not stored in the database at the moment.
 	LabelColor Color      `json:"label_color" db:"-"`

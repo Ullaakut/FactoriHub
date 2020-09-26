@@ -1,30 +1,11 @@
 package models
 
-import (
-	"github.com/gofrs/uuid"
-	"time"
-)
-
 type Signal struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-
-	Signal SignalID `json:"signal" has_one:"signal"`
-	Count  int      `json:"count"`
+	Signal SignalID `json:"signal" db:"-"`
+	Count  int      `json:"count" db:"-"`
 }
 
 type SignalID struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-
-	//SignalID uuid.UUID `json:"-" db:"signal_id"`
-	//Signal   *Signal   `json:"-" belongs_to:"signal"`
-
-	IconID uuid.UUID `json:"-" db:"icon_id"`
-	Icon   *Icon     `json:"-" belongs_to:"icon"`
-
-	Type string `json:"type" db:"type"`
-	Name string `json:"name" db:"name"`
+	Type string `json:"type" db:"-"`
+	Name string `json:"name" db:"-"`
 }

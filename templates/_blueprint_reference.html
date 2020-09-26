@@ -1,13 +1,15 @@
 <tr>
-    <td class="tg-0lax name"><%= blueprint.Blueprint.Label %></td>
+    <td class="tg-0lax name"><%= entry.Blueprint.Label %></td>
     <td class="tg-0lax icons">
-        <%= for (icon) in blueprint.Blueprint.Icons { %>
-        <img src="<%=assetPath() %>/images/icons/<%= icon.Signal.Type %>/<%= icon.Signal.Name %>.png"/>
-        <% } %>
+        <div class="bookimg">
+            <%= for (icon) in entry.Blueprint.Icons { %>
+            <img src="<%=assetPath() %>/images/icons/<%= icon.Signal.Type %>/<%= icon.Signal.Name %>.png"/>
+            <% } %>
+        </div>
     </td>
     <td class="tg-0lax entities">
         <div>
-            <%= for (entity, amount) in blueprint.Blueprint.TotalEntities() { %>
+            <%= for (entity, amount) in entry.Blueprint.TotalEntities() { %>
             <img src="<%=assetPath() %>/images/icons/<%= entity %>.png"/><span><%= amount %></span>
             <% } %>
         </div>

@@ -3,27 +3,18 @@ package models
 import (
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/validate/v3"
-	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
-	"time"
 )
 
 type BlueprintBook struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-
-	EntryID uuid.UUID `db:"entry_id"`
-	Entry   *Entry    `json:"-" belongs_to:"entry"`
-
 	// 	String, the name of the blueprint set by the user.
-	Label string `json:"label" db:"name"`
+	Label string `json:"label" db:"-"`
 
 	// The actual content of the blueprint book, array of objects containing an "index"
 	// key and 0-based value and a "blueprint" key with a Blueprint object as the value.
-	BlueprintReferences BlueprintReferences `json:"blueprints" has_many:"blueprint_references"`
+	BlueprintReferences BlueprintReferences `json:"blueprints" db:"-"`
 
-	Version VersionString `json:"version" db:"version"`
+	Version VersionString `json:"version" db:"-"`
 
 	// The following fields are not stored in the database at the moment.
 

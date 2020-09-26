@@ -1,6 +1,0 @@
-create_table("blueprint_references") {
-	t.Column("id", "uuid", {primary: true})
-	t.Column("index", "integer", {})
-	t.Column("blueprint_book_id",  "uuid", {})
-	t.Timestamps()
-}
