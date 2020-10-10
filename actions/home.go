@@ -25,7 +25,7 @@ func HomeHandler(c buffalo.Context) error {
 	var entries models.Entries
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := tx.PaginateFromParams(c.Params())
+	q := tx.Eager().PaginateFromParams(c.Params())
 	if err := q.All(&entries); err != nil {
 		return errors.WithStack(err)
 	}
@@ -41,10 +41,10 @@ func HomeHandler(c buffalo.Context) error {
 	})
 	c.Set("versions", models.Versions{
 		"1.0.0",
-		"16.4.2",
+		"0.4.2",
 	})
 	c.Set("labels", []string{"tileable", "science", "mall", "rocket"})
 	c.Set("entries", entries)
 
-	return c.Render(http.StatusOK, r.HTML("index.html"))
+	return c.Render(http.StatusOK, r.HTML("home.html"))
 }

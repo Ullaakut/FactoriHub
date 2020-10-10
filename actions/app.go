@@ -60,6 +60,7 @@ func App() *buffalo.App {
 		app.Use(translations())
 
 		app.GET("/", HomeHandler)
+		app.GET("/home", HomeHandler)
 		app.GET("/login", HomeHandler)
 		app.GET("/upload", UploadHandler)
 		app.POST("/submit", SubmitHandler)
