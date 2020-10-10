@@ -3,6 +3,7 @@ package actions
 import (
 	"factorihub/models"
 	"github.com/gobuffalo/pop/v5"
+	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
 
 	"github.com/gobuffalo/buffalo"
@@ -20,6 +21,8 @@ func SubmitHandler(c buffalo.Context) error {
 	if err := c.Bind(entry); err != nil {
 		return errors.WithStack(err)
 	}
+
+	entry.AuthorID, _ = uuid.FromString("c756b686-f97d-11ea-adc1-0242ac120002")
 
 	tx := c.Value("tx").(*pop.Connection)
 

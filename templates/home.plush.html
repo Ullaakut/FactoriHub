@@ -1,0 +1,47 @@
+<div class="content home">
+    <%= partial("search.html") %>
+    <div class="flex-container">
+        <%= for (idx, e) in entries { %>
+        <div class="entry">
+            <div class="download_btn">
+                <%= if (notNil(e.BlueprintBook)) { %>
+                <span class="blueprint_num">
+                    <%= len(e.BlueprintBook.BlueprintReferences) %>
+                </span>
+                <% } %>
+                <button id="bp<%= idx %>" class="copy">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                        <path fill-rule="evenodd"
+                              d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
+                    </svg>
+                    <input class="bpstring" type="text" value="<%= e.RawString %>" readonly aria-hidden="true">
+                </button>
+            </div>
+            <a class="entry_card" href="<%= rootPath() %>blueprint/<%= e.ID.String() %>">
+                <img class="entry_img" src="<%= assetPath() %>/images/blueprints/gearmall.jpg" alt="blueprint.ShortDescription()"/>
+                <div class="description">
+                    <h3><%= e.Title %></h3>
+                    <%= if (e.Version.String() == versions.Latest()) { %>
+                    <span class="latest">latest</span>
+                    <% } %>
+                    <span class="favorites"><i class="fas fa-heart"></i><%= e.Favorites %></span>
+
+                    <hr/>
+
+                    <span class="labels">
+                    <%= for (label) in e.LabelsDB { %>
+                        <span class="label">
+                            <%= label %>
+                        </span>
+                    <% } %>
+                </span>
+                    <!-- TODO: Use Gravatar -->
+                    <span class="author">
+                    <%= e.Author.Name %>
+                </span>
+                </div>
+            </a>
+        </div>
+        <% } %>
+    </div>
+</div>
